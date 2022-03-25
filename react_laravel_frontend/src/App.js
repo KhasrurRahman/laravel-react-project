@@ -1,22 +1,19 @@
-import Header from './Component/Header';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AddProduct from './pages/AddProduct';
 import UpdateProduct from './pages/UpdateProduct';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import './App.css';
+import Protected from './Component/Protected';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
-        <h1>E-com project</h1>
         <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="add" element={<AddProduct />} />
-          <Route path="update" element={<UpdateProduct />} />
+          <Route path="login" element={<Protected Cmp={Login}/>} />
+          <Route path="register" element={<Protected Cmp={Register}/>} />
+          <Route path="add" element={<Protected Cmp={AddProduct}/>} />
+          <Route path="update" element={<Protected Cmp={UpdateProduct}/>} />
         </Routes>
       </BrowserRouter>
     </div>

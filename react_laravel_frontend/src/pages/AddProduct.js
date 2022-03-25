@@ -1,8 +1,12 @@
+import Header from '../Component/Header';
 function AddProduct() {
-    return(
-        <div>
-            <h1>AddProduct</h1>
-        </div>
+    return (
+        <>
+            <Header />
+            <div>
+                <h1>AddProduct</h1>
+            </div>
+        </>
     )
 }
 
