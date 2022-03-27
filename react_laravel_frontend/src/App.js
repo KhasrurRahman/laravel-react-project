@@ -4,12 +4,14 @@ import AddProduct from './pages/AddProduct';
 import UpdateProduct from './pages/UpdateProduct';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Protected from './Component/Protected';
+import ProductList from './pages/ProductList';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Protected Cmp={ProductList}/>} />
           <Route path="login" element={<Protected Cmp={Login}/>} />
           <Route path="register" element={<Protected Cmp={Register}/>} />
           <Route path="add" element={<Protected Cmp={AddProduct}/>} />
