@@ -1,18 +1,31 @@
 import { Table } from 'react-bootstrap';
 import Header from '../Component/Header';
 import { React, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 
 function ProductList() {
-
     const [data, setData] = useState([])
-
     useEffect(async () => {
         let result = await fetch('http://127.0.0.1:8000/api/listProduct')
         result = await result.json();
         setData(result)
     }, [])
-    console.log(data)
+    
+    async function deleteItem(productId) {
+        let result = await fetch('http://127.0.0.1:8000/api/deleteProduct/'+productId,{
+            method: "delete",
+        });
+
+        result = await result.json()
+        getData()
+    }
+
+    async function getData() {
+        let result = await fetch('http://127.0.0.1:8000/api/listProduct')
+        result = await result.json();
+        setData(result)
+    }
 
 
     return (
@@ -29,17 +42,22 @@ function ProductList() {
                             <th>Image</th>
                             <th>Price</th>
                             <th>Description</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             data.map((item,key) =>
                                 <tr>
-                                    <td>{key+1}</td>
+                                    <td>{item.id}</td>
                                     <td>{item.name}</td>
                                     <td><img style={{ height:100,width:140 }} src={'http://127.0.0.1:8000/'+item.image}/></td>
                                     <td>{item.price}</td>
                                     <td>{item.desc}</td>
+                                    <td>
+                                        <button onClick={()=>{deleteItem(item.id)}} className='btn btn-danger btn-sm'>Delete</button> 
+                                        ̥̥<Link to={'update/'+item.id} className='btn btn-info btn-sm'>Edit</Link>
+                                    </td>
                                 </tr>
                             )
                         }
