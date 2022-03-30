@@ -1,9 +1,10 @@
 import Header from '../Component/Header';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
 function UpdateProduct() {
     let prams = useParams().id;
+    let history = useNavigate();
     const [data, setData] = useState([])
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
@@ -32,7 +33,7 @@ function UpdateProduct() {
             body: formData,
         })
 
-        alert("Product Added Successfully");
+        history('/')
     }
 
     return (
@@ -40,14 +41,14 @@ function UpdateProduct() {
             <Header />
             <div className='col-md-8 offset-2'>
                 <h1>UpdateProduct</h1>
-                <input type="text" className='form-control' defaultValue={data.name}></input>
+                <input type="text" className='form-control' defaultValue={data.name} onChange={(e)=>setName(e.target.value)}></input>
                 <br />
-                <input type="number" className='form-control' defaultValue={data.price}></input>
+                <input type="number" className='form-control' defaultValue={data.price} onChange={(e)=>setPrice(e.target.value)}></input>
                 <br />
                 <input type="file" className='form-control'></input>
-                <img style={{ width: 90 }} src={'http://127.0.0.1:8000/' + data.image} />
+                <img style={{ width: 90 }} src={'http://127.0.0.1:8000/' + data.image} onChange={(e)=>setImage(e.target.value)}/>
                 <br />
-                <input type="text" className='form-control' defaultValue={data.desc}></input>
+                <input type="text" className='form-control' defaultValue={data.desc} onChange={(e)=>setDesc(e.target.value)}></input>
                 <br />
                 <button className="btn btn-success" onClick={() => editProduct(data.id)}>Update Product</button>
             </div>

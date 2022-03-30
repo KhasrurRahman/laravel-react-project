@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductModel;
 use Illuminate\Http\Request;
+use Symfony\Component\Console\Input\Input;
 
 class ProductController extends Controller
 {
@@ -53,6 +54,12 @@ class ProductController extends Controller
         }
         $product->update();
 
-        return $product;
+        return ['message'=>'product has been updated'];
+    }
+
+    public function search(Request $request)
+    {
+        $key = $request->key;
+        return ProductModel::where('name','LIKE',"%$key%")->get();
     }
 }
